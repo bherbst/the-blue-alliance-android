@@ -1,7 +1,8 @@
 package com.thebluealliance.androidclient.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.thebluealliance.androidclient.fragments.EventListFragment;
 import com.thebluealliance.androidclient.models.EventWeekTab;
@@ -9,45 +10,35 @@ import com.thebluealliance.androidclient.models.EventWeekTab;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsByWeekFragmentPagerAdapter extends BindableFragmentPagerAdapter {
+public class EventsByWeekFragmentPagerAdapter extends FragmentStateAdapter {
 
-    private int mCount;
-    private int mYear;
-    private List<EventWeekTab> mThisYearsWeekTabs;
-    private List<String> mLabels;
+    private int year;
+    private List<EventWeekTab> thisYearsWeekTabs;
 
-    public EventsByWeekFragmentPagerAdapter(FragmentManager fm, int year, List<EventWeekTab> labels) {
-        super(fm);
-        mLabels = new ArrayList<>();
-        mThisYearsWeekTabs = labels;
-        for (int i = 0; i < mThisYearsWeekTabs.size(); i++) {
-            mLabels.add(mThisYearsWeekTabs.get(i).getLabel());
-        }
-        mCount = labels.size();
-        mYear = year;
+    public EventsByWeekFragmentPagerAdapter(Fragment parentFragment) {
+        super(parentFragment);
+        thisYearsWeekTabs = new ArrayList<>(0);
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mThisYearsWeekTabs.get(position).getLabel();
-    }
-
-    @Override
-    public int getCount() {
-        return mCount;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        EventWeekTab tab = mThisYearsWeekTabs.get(position);
-        return EventListFragment.newInstance(mYear, tab.getWeek(), tab.getMonth(), getPageTitle(position).toString(), false);
-    }
-
-    public List<String> getLabels() {
-        return mLabels;
+    public void setTabs(int year, List<EventWeekTab> tabs) {
+        thisYearsWeekTabs = tabs;
+        this.year = year;
+        notifyDataSetChanged();
     }
 
     public List<EventWeekTab> getTabs() {
-        return mThisYearsWeekTabs;
+        return thisYearsWeekTabs;
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        EventWeekTab tab = thisYearsWeekTabs.get(position);
+        return EventListFragment.newInstance(year, tab.getWeek(), tab.getMonth(), tab.getLabel(), true);
+    }
+
+    @Override
+    public int getItemCount() {
+        return thisYearsWeekTabs.size();
     }
 }
