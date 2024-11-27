@@ -294,7 +294,6 @@ dependencies {
     implementation 'io.reactivex:rxjava-math:1.0.0'
     implementation 'me.relex:circleindicator:2.1.6@aar'
     implementation 'io.nlopez.smartadapters:library:1.3.1'
-    implementation 'com.wada811:android-material-design-colors:3.0.0'
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
     implementation "com.github.permissions-dispatcher:permissionsdispatcher:${permissionDispatcherVersion}"
     annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:${permissionDispatcherVersion}"
