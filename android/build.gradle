@@ -229,6 +229,7 @@ task checkstyle(type: Checkstyle) {
 
 dependencies {
     implementation project(':libTba')
+    implementation project(':libMyTba')
     implementation project(':libImgur')
 
     // Android support libraries
