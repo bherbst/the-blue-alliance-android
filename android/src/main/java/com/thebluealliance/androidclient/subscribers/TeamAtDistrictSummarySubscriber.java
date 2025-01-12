@@ -11,9 +11,9 @@ import com.thebluealliance.androidclient.helpers.EventTeamHelper;
 import com.thebluealliance.androidclient.listitems.LabelValueDetailListItem;
 import com.thebluealliance.androidclient.listitems.LabelValueListItem;
 import com.thebluealliance.androidclient.listitems.ListItem;
+import com.thebluealliance.androidclient.models.DistrictPointBreakdown;
 import com.thebluealliance.androidclient.models.DistrictRanking;
 import com.thebluealliance.androidclient.models.Event;
-import com.thebluealliance.api.model.IDistrictEventPoints;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,17 +54,17 @@ public class TeamAtDistrictSummarySubscriber
         mDataToBind.add(new LabelValueListItem(mResources.getString(R.string.district_point_rank),
           mAPIData.getRank() + Utilities.getOrdinalFor(mAPIData.getRank())));
 
-        @Nullable IDistrictEventPoints event1Points = getEventPoints(mAPIData, 0);
+        @Nullable DistrictPointBreakdown event1Points = getEventPoints(mAPIData, 0);
         if (event1Points != null) {
             mDataToBind.add(renderEventPoints(mAPIData.getTeamKey(), event1Points, eventsTable, mResources));
         }
 
-        @Nullable IDistrictEventPoints event2Points = getEventPoints(mAPIData, 1);
+        @Nullable DistrictPointBreakdown event2Points = getEventPoints(mAPIData, 1);
         if (event2Points != null) {
             mDataToBind.add(renderEventPoints(mAPIData.getTeamKey(), event2Points, eventsTable, mResources));
         }
 
-        @Nullable IDistrictEventPoints cmpPoints = getEventPoints(mAPIData, 2);
+        @Nullable DistrictPointBreakdown cmpPoints = getEventPoints(mAPIData, 2);
         if (cmpPoints != null) {
             mDataToBind.add(renderEventPoints(mAPIData.getTeamKey(), cmpPoints, eventsTable, mResources));
         }
@@ -84,7 +84,7 @@ public class TeamAtDistrictSummarySubscriber
     }
 
     private static LabelValueDetailListItem renderEventPoints(String teamKey,
-                                                              IDistrictEventPoints points,
+                                                              DistrictPointBreakdown points,
                                                               EventsTable eventsTable,
                                                               Resources resources) {
         Event event = eventsTable.get(points.getEventKey());
@@ -94,7 +94,7 @@ public class TeamAtDistrictSummarySubscriber
                                             EventTeamHelper.generateKey(points.getEventKey(), teamKey));
     }
 
-    private static @Nullable IDistrictEventPoints getEventPoints(DistrictRanking ranking, int index) {
+    private static @Nullable DistrictPointBreakdown getEventPoints(DistrictRanking ranking, int index) {
         if (ranking.getEventPoints() == null || ranking.getEventPoints().size() < (index + 1)) {
             return null;
         }

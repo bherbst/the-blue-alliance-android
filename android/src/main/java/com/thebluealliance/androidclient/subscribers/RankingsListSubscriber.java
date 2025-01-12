@@ -1,10 +1,5 @@
 package com.thebluealliance.androidclient.subscribers;
 
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.BOLD_TITLES;
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.LINE_BREAKS;
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.buildRankingString;
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.formatSortOrder;
-
 import android.content.res.Resources;
 
 import com.thebluealliance.androidclient.R;
@@ -12,11 +7,9 @@ import com.thebluealliance.androidclient.database.Database;
 import com.thebluealliance.androidclient.eventbus.EventRankingsEvent;
 import com.thebluealliance.androidclient.models.RankingItem;
 import com.thebluealliance.androidclient.models.RankingResponseObject;
+import com.thebluealliance.androidclient.models.RankingSortOrder;
 import com.thebluealliance.androidclient.models.Team;
 import com.thebluealliance.androidclient.viewmodels.TeamRankingViewModel;
-import com.thebluealliance.api.model.IRankingItem;
-import com.thebluealliance.api.model.IRankingSortOrder;
-import com.thebluealliance.api.model.ITeamRecord;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.BOLD_TITLES;
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.LINE_BREAKS;
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.buildRankingString;
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.formatSortOrder;
 
 public class RankingsListSubscriber extends BaseAPISubscriber<RankingResponseObject, List<Object>> {
 
@@ -46,19 +44,19 @@ public class RankingsListSubscriber extends BaseAPISubscriber<RankingResponseObj
             return;
         }
 
-        List<IRankingItem> rankings = mAPIData.getRankings();
-        List<IRankingSortOrder> sortOrders = mAPIData.getSortOrderInfo();
-        List<IRankingSortOrder> extraStats = mAPIData.getExtraStatsInfo();
-        IRankingSortOrder firstSortInfo = sortOrders.remove(0);
+        List<RankingItem> rankings = mAPIData.getRankings();
+        List<RankingSortOrder> sortOrders = mAPIData.getSortOrderInfo();
+        List<RankingSortOrder> extraStats = mAPIData.getExtraStatsInfo();
+        RankingSortOrder firstSortInfo = sortOrders.remove(0);
         for (int i = 0; i < rankings.size(); i++) {
-            IRankingItem row = rankings.get(i);
+            RankingItem row = rankings.get(i);
             /* Assume that the list of lists has rank first and team # second, always */
             String teamKey = row.getTeamKey();
             String rankingString;
             String rankingSummary;
             String record;
 
-            @Nullable ITeamRecord teamRecord = row.getRecord();
+            @Nullable RankingItem.TeamRecord teamRecord = row.getRecord();
             if (teamRecord != null) {
                 record = "(" + RankingItem.TeamRecord.buildRecordString(teamRecord) + ")";
             } else {
@@ -112,7 +110,7 @@ public class RankingsListSubscriber extends BaseAPISubscriber<RankingResponseObj
         if (rankings.getRankings().isEmpty()) {
             return rankString;
         }
-        List<IRankingItem> rankingsData = rankings.getRankings();
+        List<RankingItem> rankingsData = rankings.getRankings();
         for (int i = 0; i < Math.min(EventRankingsEvent.SIZE, rankingsData.size()); i++) {
             rankString += ((i+1) + ". <b>" + rankingsData.get(i).getTeamKey().substring(3)) + "</b>";
             if (i < Math.min(6, rankingsData.size()) - 1) {

@@ -1,10 +1,5 @@
 package com.thebluealliance.androidclient.views.breakdowns;
 
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getBooleanDefault;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefault;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefaultValue;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.teamNumberFromKey;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
@@ -16,11 +11,16 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.thebluealliance.androidclient.R;
 import com.thebluealliance.androidclient.databinding.MatchBreakdown2023Binding;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.types.MatchType;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
 
 import java.util.List;
 import java.util.Objects;
+
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getBooleanDefault;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefault;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefaultValue;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.teamNumberFromKey;
 
 public class MatchBreakdownView2023 extends AbstractMatchBreakdownView {
     private MatchBreakdown2023Binding mBinding;
@@ -45,7 +45,7 @@ public class MatchBreakdownView2023 extends AbstractMatchBreakdownView {
 
 
     @Override
-    public boolean initWithData(MatchType matchType, String winningAlliance, IMatchAlliancesContainer allianceData, JsonObject scoreData) {
+    public boolean initWithData(MatchType matchType, String winningAlliance, MatchAlliancesContainer allianceData, JsonObject scoreData) {
         if (scoreData == null || scoreData.entrySet().isEmpty()
                 || allianceData == null || allianceData.getRed() == null || allianceData.getBlue() == null) {
             mBinding.breakdown2023Container.setVisibility(GONE);

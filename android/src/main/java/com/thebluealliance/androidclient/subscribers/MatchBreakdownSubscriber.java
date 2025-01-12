@@ -6,7 +6,7 @@ import com.thebluealliance.androidclient.TbaLogger;
 import com.thebluealliance.androidclient.binders.MatchBreakdownBinder;
 import com.thebluealliance.androidclient.config.AppConfig;
 import com.thebluealliance.androidclient.models.Match;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -34,7 +34,7 @@ public class MatchBreakdownSubscriber extends BaseAPISubscriber<Match, MatchBrea
     @Override
     public void parseData()  {
         JsonObject scoreBreakdown;
-        IMatchAlliancesContainer alliances;
+        MatchAlliancesContainer alliances;
         boolean shouldShowBreakdown = false;
 
         switch (mAPIData.getYear()) {

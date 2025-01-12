@@ -1,7 +1,5 @@
 package com.thebluealliance.androidclient.subscribers;
 
-import static com.thebluealliance.androidclient.subscribers.MatchInfoSubscriber.Model;
-
 import android.content.res.Resources;
 
 import com.google.gson.Gson;
@@ -13,12 +11,13 @@ import com.thebluealliance.androidclient.models.Media;
 import com.thebluealliance.androidclient.renderers.MatchRenderer;
 import com.thebluealliance.androidclient.renderers.MediaRenderer;
 import com.thebluealliance.androidclient.types.MediaType;
-import com.thebluealliance.api.model.IMatchVideo;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.thebluealliance.androidclient.subscribers.MatchInfoSubscriber.Model;
 
 public class MatchInfoSubscriber extends BaseAPISubscriber<Model, List<ListItem>> {
 
@@ -61,7 +60,7 @@ public class MatchInfoSubscriber extends BaseAPISubscriber<Model, List<ListItem>
 
         mMatchTitle = mAPIData.match.getTitle(mResources);
         mMatchKey = mAPIData.match.getKey();
-        List<IMatchVideo> matchVideos = mAPIData.match.getVideos();
+        List<Match.MatchVideo> matchVideos = mAPIData.match.getVideos();
         for (int i = 0; matchVideos != null && i < matchVideos.size(); i++) {
             Match.MatchVideo video = (Match.MatchVideo)matchVideos.get(i);
             if (MediaType.fromString(video.getType()) != MediaType.NONE) {

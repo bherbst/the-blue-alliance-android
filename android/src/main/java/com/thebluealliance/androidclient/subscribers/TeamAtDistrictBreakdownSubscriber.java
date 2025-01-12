@@ -8,7 +8,6 @@ import com.thebluealliance.androidclient.listitems.ListGroup;
 import com.thebluealliance.androidclient.models.DistrictPointBreakdown;
 import com.thebluealliance.androidclient.models.DistrictRanking;
 import com.thebluealliance.androidclient.models.Event;
-import com.thebluealliance.api.model.IDistrictEventPoints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +30,11 @@ public class TeamAtDistrictBreakdownSubscriber
     @Override
     public synchronized void parseData()  {
         mDataToBind.clear();
-        List<IDistrictEventPoints> eventBreakdowns = mAPIData.getEventPoints();
+        List<DistrictPointBreakdown> eventBreakdowns = mAPIData.getEventPoints();
         if (eventBreakdowns == null) {
             return;
         }
-        for (IDistrictEventPoints eventData : eventBreakdowns) {
+        for (DistrictPointBreakdown eventData : eventBreakdowns) {
             Event event = mDb.getEventsTable().get(eventData.getEventKey());
             DistrictPointBreakdown breakdown = (DistrictPointBreakdown) eventData;
             ListGroup eventGroup = new ListGroup(event == null

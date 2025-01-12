@@ -2,64 +2,61 @@ package com.thebluealliance.androidclient.models;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.thebluealliance.androidclient.models.TeamAtEventStatus.TeamAtEventPlayoff;
 import com.thebluealliance.androidclient.types.EventDetailType;
-import com.thebluealliance.api.model.IAllianceBackup;
-import com.thebluealliance.api.model.IEventAlliance;
-import com.thebluealliance.api.model.ITeamAtEventPlayoff;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class EventAlliance implements IEventAlliance {
+public class EventAlliance {
 
     private List<String> picks;
     private @Nullable String eventKey;
     private @Nullable List<String> declines;
     private @Nullable String name;
-    private @Nullable IAllianceBackup backup;
+    private @Nullable AllianceBackup backup;
     private @Nullable Long lastModified;
-    private @Nullable ITeamAtEventPlayoff status;
+    private @Nullable TeamAtEventPlayoff status;
 
-    @Override @Nullable public String getName() {
+    @Nullable public String getName() {
         return name;
     }
 
-    @Override public void setName(@Nullable String name) {
+    public void setName(@Nullable String name) {
         this.name = name;
     }
 
-    @Override public List<String> getPicks() {
+    public List<String> getPicks() {
         return picks;
     }
 
-    @Override public void setPicks(List<String> picks) {
+    public void setPicks(List<String> picks) {
         this.picks = picks;
     }
 
-    @Override @Nullable public List<String> getDeclines() {
+    @Nullable public List<String> getDeclines() {
         return declines;
     }
 
-    @Override public void setDeclines(@Nullable List<String> declines) {
+    public void setDeclines(@Nullable List<String> declines) {
         this.declines = declines;
     }
 
-    @Override @Nullable
-    public IAllianceBackup getBackup() {
+    @Nullable
+    public AllianceBackup getBackup() {
         return backup;
     }
 
-    @Override
-    public void setBackup(@Nullable IAllianceBackup backup) {
+    public void setBackup(@Nullable AllianceBackup backup) {
         this.backup = backup;
     }
 
-    @Override @Nullable public ITeamAtEventPlayoff getStatus() {
+    @Nullable public TeamAtEventPlayoff getStatus() {
         return status;
     }
 
-    @Override public void setStatus(@Nullable ITeamAtEventPlayoff status) {
+    public void setStatus(@Nullable TeamAtEventPlayoff status) {
         this.status = status;
     }
 
@@ -71,11 +68,11 @@ public class EventAlliance implements IEventAlliance {
         this.eventKey = eventKey;
     }
 
-    @Override @Nullable public Long getLastModified() {
+    @Nullable public Long getLastModified() {
         return lastModified;
     }
 
-    @Override public void setLastModified(@Nullable Long lastModified) {
+    public void setLastModified(@Nullable Long lastModified) {
         this.lastModified = lastModified;
     }
 
@@ -94,23 +91,23 @@ public class EventAlliance implements IEventAlliance {
         return eventDetail;
     }
 
-    public static class AllianceBackup implements IAllianceBackup {
+    public static class AllianceBackup  {
         private String in;
         private String out;
 
-        @Override public String getIn() {
+        public String getIn() {
             return in;
         }
 
-        @Override public void setIn(String in) {
+        public void setIn(String in) {
             this.in = in;
         }
 
-        @Override public String getOut() {
+        public String getOut() {
             return out;
         }
 
-        @Override public void setOut(String out) {
+        public void setOut(String out) {
             this.out = out;
         }
     }

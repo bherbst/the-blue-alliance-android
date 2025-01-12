@@ -8,18 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.thebluealliance.androidclient.TbaLogger;
-import com.thebluealliance.androidclient.datafeed.deserializers.AwardDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.DistrictTeamDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.EventDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.MatchDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.MediaDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.TeamDeserializer;
-import com.thebluealliance.androidclient.models.Award;
-import com.thebluealliance.androidclient.models.DistrictRanking;
-import com.thebluealliance.androidclient.models.Event;
-import com.thebluealliance.androidclient.models.Match;
-import com.thebluealliance.androidclient.models.Media;
-import com.thebluealliance.androidclient.models.Team;
 
 @Deprecated
 public final class JSONHelper {
@@ -50,12 +38,6 @@ public final class JSONHelper {
         if (gson == null) {
             /* Construct new gson with our custom deserializers */
             GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(Award.class, new AwardDeserializer());
-            builder.registerTypeAdapter(Event.class, new EventDeserializer());
-            builder.registerTypeAdapter(Match.class, new MatchDeserializer());
-            builder.registerTypeAdapter(Team.class, new TeamDeserializer());
-            builder.registerTypeAdapter(Media.class, new MediaDeserializer());
-            builder.registerTypeAdapter(DistrictRanking.class, new DistrictTeamDeserializer());
             gson = builder.create();
         }
         return gson;

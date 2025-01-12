@@ -3,8 +3,6 @@ package com.thebluealliance.androidclient.models;
 import android.content.ContentValues;
 import android.content.res.Resources;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,17 +16,16 @@ import com.thebluealliance.androidclient.renderers.MatchRenderer;
 import com.thebluealliance.androidclient.renderers.ModelRendererSupplier;
 import com.thebluealliance.androidclient.types.MatchType;
 import com.thebluealliance.androidclient.types.ModelType;
-import com.thebluealliance.api.model.IMatch;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
-import com.thebluealliance.api.model.IMatchVideo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import androidx.annotation.NonNull;
 
-public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
+
+public class Match implements TbaDatabaseModel, RenderableModel<Match> {
 
     public static final String[] NOTIFICATION_TYPES = {
             NotificationTypes.UPCOMING_MATCH,
@@ -42,9 +39,9 @@ public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
     private Integer matchNumber;
     private Integer setNumber;
 
-    private @Nullable IMatchAlliancesContainer alliances;
+    private @Nullable MatchAlliancesContainer alliances;
     private @Nullable String scoreBreakdown;
-    private @Nullable List<IMatchVideo> videos;
+    private @Nullable List<MatchVideo> videos;
     private @Nullable Long time;
     private @Nullable Long actualTime;
     private @Nullable String winningAlliance;
@@ -61,87 +58,87 @@ public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
         return key;
     }
 
-    @Override public void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    @Override public String getEventKey() {
+    public String getEventKey() {
         return eventKey;
     }
 
-    @Override public void setEventKey(String eventKey) {
+    public void setEventKey(String eventKey) {
         this.eventKey = eventKey;
     }
 
-    @Override public String getCompLevel() {
+    public String getCompLevel() {
         return compLevel;
     }
 
-    @Override public void setCompLevel(String compLevel) {
+    public void setCompLevel(String compLevel) {
         this.compLevel = compLevel;
     }
 
-    @Override public Integer getMatchNumber() {
+    public Integer getMatchNumber() {
         return matchNumber;
     }
 
-    @Override public void setMatchNumber(Integer matchNumber) {
+    public void setMatchNumber(Integer matchNumber) {
         this.matchNumber = matchNumber;
     }
 
-    @Override public Integer getSetNumber() {
+    public Integer getSetNumber() {
         return setNumber;
     }
 
-    @Override public void setSetNumber(Integer setNumber) {
+    public void setSetNumber(Integer setNumber) {
         this.setNumber = setNumber;
     }
 
-    @Override @Nullable public IMatchAlliancesContainer getAlliances() {
+    @Nullable public MatchAlliancesContainer getAlliances() {
         return alliances;
     }
 
-    @Override public void setAlliances(@Nullable IMatchAlliancesContainer alliances) {
+    public void setAlliances(@Nullable MatchAlliancesContainer alliances) {
         this.alliances = alliances;
     }
 
-    @Override @Nullable public String getScoreBreakdown() {
+    @Nullable public String getScoreBreakdown() {
         return scoreBreakdown;
     }
 
-    @Override public void setScoreBreakdown(@Nullable String scoreBreakdown) {
+    public void setScoreBreakdown(@Nullable String scoreBreakdown) {
         this.scoreBreakdown = scoreBreakdown;
     }
 
-    @Override @Nullable public List<IMatchVideo> getVideos() {
+    @Nullable public List<MatchVideo> getVideos() {
         return videos;
     }
 
-    @Override public void setVideos(@Nullable List<IMatchVideo> videos) {
+    public void setVideos(@Nullable List<MatchVideo> videos) {
         this.videos = videos;
     }
 
-    @Override @Nullable public Long getTime() {
+    @Nullable public Long getTime() {
         return time;
     }
 
-    @Override public void setTime(@Nullable Long time) {
+    public void setTime(@Nullable Long time) {
         this.time = time;
     }
 
-    @Override @Nullable public Long getActualTime() {
+    @Nullable public Long getActualTime() {
         return actualTime;
     }
 
-    @Override public void setActualTime(@Nullable Long actualTime) {
+    public void setActualTime(@Nullable Long actualTime) {
         this.actualTime = actualTime;
     }
 
-    @Override @Nullable public String getWinningAlliance() {
+    @Nullable public String getWinningAlliance() {
         return winningAlliance;
     }
 
-    @Override public void setWinningAlliance(@Nullable String winningAlliance) {
+    public void setWinningAlliance(@Nullable String winningAlliance) {
         this.winningAlliance = winningAlliance;
     }
 
@@ -211,19 +208,19 @@ public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
         }
     }
 
-    public static Integer getRedScore(IMatchAlliancesContainer alliances) {
+    public static Integer getRedScore(MatchAlliancesContainer alliances) {
         return alliances.getRed().getScore();
     }
 
-    public static Integer getBlueScore(IMatchAlliancesContainer alliances) {
+    public static Integer getBlueScore(MatchAlliancesContainer alliances) {
         return alliances.getBlue().getScore();
     }
 
-    public static List<String> getRedTeams(IMatchAlliancesContainer alliances) {
+    public static List<String> getRedTeams(MatchAlliancesContainer alliances) {
         return alliances.getRed().getTeamKeys();
     }
 
-    public static List<String> getBlueTeams(IMatchAlliancesContainer alliances) {
+    public static List<String> getBlueTeams(MatchAlliancesContainer alliances) {
         return alliances.getBlue().getTeamKeys();
     }
 
@@ -298,9 +295,9 @@ public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
         data.put(MatchesTable.SETNUM, getSetNumber());
         data.put(MatchesTable.EVENT, getEventKey());
         data.put(MatchesTable.TIME, getTime());
-        data.put(MatchesTable.ALLIANCES, gson.toJson(alliances, IMatchAlliancesContainer.class));
+        data.put(MatchesTable.ALLIANCES, gson.toJson(alliances, MatchAlliancesContainer.class)); // TODO bherbst come back here
         data.put(MatchesTable.WINNER, getWinningAlliance());
-        data.put(MatchesTable.VIDEOS, gson.toJson(videos, new TypeToken<List<IMatchVideo>>(){}.getType()));
+        data.put(MatchesTable.VIDEOS, gson.toJson(videos, new TypeToken<List<MatchVideo>>(){}.getType())); // TODO bherbst come back here
         data.put(MatchesTable.BREAKDOWN, getScoreBreakdown());
         data.put(MatchesTable.LAST_MODIFIED, getLastModified());
         return data;
@@ -316,23 +313,23 @@ public class Match implements IMatch, TbaDatabaseModel, RenderableModel<Match> {
 
     }
 
-    public static class MatchVideo implements IMatchVideo {
+    public static class MatchVideo {
         private String key;
         private String type;
 
-        @Override public String getKey() {
+        public String getKey() {
             return key;
         }
 
-        @Override public void setKey(String key) {
+        public void setKey(String key) {
             this.key = key;
         }
 
-        @Override public String getType() {
+        public String getType() {
             return type;
         }
 
-        @Override public void setType(String type) {
+        public void setType(String type) {
             this.type = type;
         }
 

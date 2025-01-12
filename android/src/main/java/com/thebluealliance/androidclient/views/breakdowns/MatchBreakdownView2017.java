@@ -1,11 +1,5 @@
 package com.thebluealliance.androidclient.views.breakdowns;
 
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getBooleanDefault;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefault;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefaultValue;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.setViewVisibility;
-import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.teamNumberFromKey;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
@@ -16,10 +10,16 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.thebluealliance.androidclient.R;
 import com.thebluealliance.androidclient.databinding.MatchBreakdown2017Binding;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.types.MatchType;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
 
 import java.util.List;
+
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getBooleanDefault;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefault;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.getIntDefaultValue;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.setViewVisibility;
+import static com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownHelper.teamNumberFromKey;
 
 public class MatchBreakdownView2017 extends AbstractMatchBreakdownView {
     private MatchBreakdown2017Binding mBinding;
@@ -47,7 +47,7 @@ public class MatchBreakdownView2017 extends AbstractMatchBreakdownView {
     @Override
     public boolean initWithData(MatchType matchType,
                                 String winningAlliance,
-                                IMatchAlliancesContainer allianceData,
+                                MatchAlliancesContainer allianceData,
                                 JsonObject scoreData) {
         if (scoreData == null || scoreData.entrySet().isEmpty()
             || allianceData == null || allianceData.getRed() == null || allianceData.getBlue() == null) {

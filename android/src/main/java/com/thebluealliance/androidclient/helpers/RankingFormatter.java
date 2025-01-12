@@ -2,11 +2,9 @@ package com.thebluealliance.androidclient.helpers;
 
 import android.content.res.Resources;
 
-import androidx.annotation.IntDef;
-
 import com.thebluealliance.androidclient.R;
-import com.thebluealliance.api.model.IRankingItem;
-import com.thebluealliance.api.model.IRankingSortOrder;
+import com.thebluealliance.androidclient.models.RankingItem;
+import com.thebluealliance.androidclient.models.RankingSortOrder;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import androidx.annotation.IntDef;
 
 public final class RankingFormatter {
 
@@ -32,7 +32,7 @@ public final class RankingFormatter {
         // unused
     }
 
-    public static String formatSortOrder(IRankingSortOrder sort, Double rankValue) {
+    public static String formatSortOrder(RankingSortOrder sort, Double rankValue) {
         switch (sort.getPrecision()) {
             case 0:
                 return ThreadSafeFormatters.formatDoubleNoPlaces(rankValue);
@@ -44,9 +44,9 @@ public final class RankingFormatter {
         }
     }
 
-    public static String buildRankingString(IRankingItem rankData,
-                                            List<IRankingSortOrder> sortOrders,
-                                            @Nullable List<IRankingSortOrder> extraStats,
+    public static String buildRankingString(RankingItem rankData,
+                                            List<RankingSortOrder> sortOrders,
+                                            @Nullable List<RankingSortOrder> extraStats,
                                             Resources resources,
                                             @RankingStringOptions int flags) {
         Map<String, String> rankingElements = new LinkedHashMap<>();
@@ -57,7 +57,7 @@ public final class RankingFormatter {
         for (int j = 0; j < Math.min(sortOrders.size(), rankData.getSortOrders().size()); j++) {
             String rankString;
             Double rankValue = rankData.getSortOrders().get(j);
-            IRankingSortOrder sort = sortOrders.get(j);
+            RankingSortOrder sort = sortOrders.get(j);
             rankString = formatSortOrder(sort, rankValue);
             rankingElements.put(sort.getName(), rankString);
         }
@@ -67,7 +67,7 @@ public final class RankingFormatter {
              j++) {
             String rankString;
             Double rankValue = rankData.getExtraStats().get(j);
-            IRankingSortOrder sort = extraStats.get(j);
+            RankingSortOrder sort = extraStats.get(j);
             rankString = formatSortOrder(sort, rankValue);
             rankingElements.put(sort.getName(), rankString);
         }

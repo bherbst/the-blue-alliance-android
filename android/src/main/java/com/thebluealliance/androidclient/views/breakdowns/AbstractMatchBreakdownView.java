@@ -5,8 +5,8 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.google.gson.JsonObject;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.types.MatchType;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
 
 public abstract class AbstractMatchBreakdownView extends FrameLayout {
 
@@ -29,6 +29,6 @@ public abstract class AbstractMatchBreakdownView extends FrameLayout {
 
     public abstract boolean initWithData(MatchType matchType,
                                          String winningAlliance,
-                                         IMatchAlliancesContainer allianceData,
+                                         MatchAlliancesContainer allianceData,
                                          JsonObject scoreData);
 }

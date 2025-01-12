@@ -1,8 +1,5 @@
 package com.thebluealliance.androidclient.subscribers;
 
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.NONE;
-import static com.thebluealliance.androidclient.helpers.RankingFormatter.buildRankingString;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.Html;
@@ -19,18 +16,13 @@ import com.thebluealliance.androidclient.models.Award;
 import com.thebluealliance.androidclient.models.Event;
 import com.thebluealliance.androidclient.models.Match;
 import com.thebluealliance.androidclient.models.RankingItem;
+import com.thebluealliance.androidclient.models.RankingSortOrder;
 import com.thebluealliance.androidclient.models.Team;
 import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.renderers.MatchRenderer;
 import com.thebluealliance.androidclient.viewmodels.LabelValueViewModel;
 import com.thebluealliance.androidclient.viewmodels.LabeledMatchViewModel;
 import com.thebluealliance.androidclient.viewmodels.SimpleTeamViewModel;
-import com.thebluealliance.api.model.IRankingItem;
-import com.thebluealliance.api.model.IRankingSortOrder;
-import com.thebluealliance.api.model.ITeamAtEventAlliance;
-import com.thebluealliance.api.model.ITeamAtEventPlayoff;
-import com.thebluealliance.api.model.ITeamAtEventQual;
-import com.thebluealliance.api.model.ITeamRecord;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +34,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.NONE;
+import static com.thebluealliance.androidclient.helpers.RankingFormatter.buildRankingString;
 
 public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventSummarySubscriber.Model, List<Object>> {
 
@@ -97,9 +92,9 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         Match nextMatch = null, lastMatch = null;
 
         @Nullable TeamAtEventStatus status = mAPIData.status;
-        @Nullable ITeamAtEventAlliance allianceData = status != null ? status.getAlliance() : null;
-        @Nullable ITeamAtEventQual qualData = status != null ? status.getQual() : null;
-        @Nullable ITeamAtEventPlayoff playoffData = status != null ? status.getPlayoff() : null;
+        @Nullable TeamAtEventStatus.TeamAtEventAlliance allianceData = status != null ? status.getAlliance() : null;
+        @Nullable TeamAtEventStatus.TeamAtEventQual qualData = status != null ? status.getQual() : null;
+        @Nullable TeamAtEventStatus.TeamAtEventPlayoff playoffData = status != null ? status.getPlayoff() : null;
 
         Event event = mAPIData.event;
         Date now = new Date();
@@ -127,7 +122,7 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         }
 
         String qualRecordString;
-        @Nullable ITeamRecord qualRecord = null;
+        @Nullable RankingItem.TeamRecord qualRecord = null;
         if (qualData != null
                 && qualData.getRanking() != null
                 && qualData.getRanking().getRecord() != null) {
@@ -148,8 +143,8 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         int rank = 0;
         String rankingString = "";
         LabelValueViewModel rankBreakdownItem = null;
-        @Nullable IRankingItem rankData = qualData != null ? qualData.getRanking() : null;
-        @Nullable List<IRankingSortOrder> sortOrders = qualData != null ? qualData.getSortOrderInfo() : null;
+        @Nullable RankingItem rankData = qualData != null ? qualData.getRanking() : null;
+        @Nullable List<RankingSortOrder> sortOrders = qualData != null ? qualData.getSortOrderInfo() : null;
         if (rankData != null && sortOrders != null) {
             rank = rankData.getRank();
             rankingString = buildRankingString(rankData, sortOrders, null, mResources, NONE);

@@ -12,12 +12,11 @@ import com.thebluealliance.androidclient.listitems.ListElement;
 import com.thebluealliance.androidclient.renderers.MediaRenderer;
 import com.thebluealliance.androidclient.renderers.ModelRendererSupplier;
 import com.thebluealliance.androidclient.types.ModelType;
-import com.thebluealliance.api.model.IMedia;
 
 import javax.annotation.Nullable;
 
 
-public class Media implements IMedia, TbaDatabaseModel, RenderableModel<Media> {
+public class Media implements TbaDatabaseModel, RenderableModel<Media> {
 
     private String detailsJson = null;
     private String foreignKey = null;
@@ -49,15 +48,15 @@ public class Media implements IMedia, TbaDatabaseModel, RenderableModel<Media> {
         this.detailsJson = detailsJson;
     }
 
-    @Nullable @Override public String getDetails() {
+    @Nullable public String getDetails() {
         return detailsJson;
     }
 
-    @Override public String getForeignKey() {
+    public String getForeignKey() {
         return foreignKey;
     }
 
-    @Override public void setForeignKey(String foreignKey) {
+    public void setForeignKey(String foreignKey) {
         this.foreignKey = foreignKey;
     }
 
@@ -65,33 +64,31 @@ public class Media implements IMedia, TbaDatabaseModel, RenderableModel<Media> {
         return lastModified;
     }
 
-    @Override public void setLastModified(Long lastModified) {
+    public void setLastModified(Long lastModified) {
         this.lastModified = lastModified;
     }
 
-    @Override public String getType() {
+    public String getType() {
         return type;
     }
 
-    @Override public void setType(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    @Override public Boolean getPreferred() {
+    public Boolean getPreferred() {
         return preferred;
     }
 
-    @Override public void setPreferred(Boolean preferred) {
+    public void setPreferred(Boolean preferred) {
         this.preferred = preferred;
     }
 
     @Nullable
-    @Override
     public String getBase64Image() {
         return base64Image;
     }
 
-    @Override
     public void setBase64Image(String base64Image) {
         this.base64Image = base64Image;
     }

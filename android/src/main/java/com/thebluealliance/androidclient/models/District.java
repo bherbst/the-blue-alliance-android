@@ -5,11 +5,10 @@ import android.content.ContentValues;
 import com.google.gson.Gson;
 import com.thebluealliance.androidclient.database.TbaDatabaseModel;
 import com.thebluealliance.androidclient.database.tables.DistrictsTable;
-import com.thebluealliance.api.model.IDistrict;
 
 import javax.annotation.Nullable;
 
-public class District implements IDistrict, TbaDatabaseModel {
+public class District implements TbaDatabaseModel {
 
     private String key;
     private String abbreviation;
@@ -64,7 +63,6 @@ public class District implements IDistrict, TbaDatabaseModel {
         return displayName;
     }
 
-    @Override
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
@@ -77,7 +75,6 @@ public class District implements IDistrict, TbaDatabaseModel {
         this.numEvents = numEvents;
     }
 
-    @Override
     public ContentValues getParams(Gson gson) {
         ContentValues params = new ContentValues();
         params.put(DistrictsTable.KEY, getKey());

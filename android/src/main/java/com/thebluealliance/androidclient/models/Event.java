@@ -3,8 +3,6 @@ package com.thebluealliance.androidclient.models;
 import android.content.ContentValues;
 import android.content.Context;
 
-import androidx.annotation.IntDef;
-
 import com.google.gson.Gson;
 import com.thebluealliance.androidclient.Utilities;
 import com.thebluealliance.androidclient.database.TbaDatabaseModel;
@@ -15,8 +13,6 @@ import com.thebluealliance.androidclient.helpers.ThreadSafeFormatters;
 import com.thebluealliance.androidclient.types.EventType;
 import com.thebluealliance.androidclient.viewmodels.EventViewModel;
 import com.thebluealliance.androidclient.viewmodels.ViewModelRenderer;
-import com.thebluealliance.api.model.IDistrict;
-import com.thebluealliance.api.model.IEvent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -26,8 +22,10 @@ import java.util.Date;
 
 import javax.annotation.Nullable;
 
+import androidx.annotation.IntDef;
 
-public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventViewModel, Integer> {
+
+public class Event implements TbaDatabaseModel, ViewModelRenderer<EventViewModel, Integer> {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({RENDER_BASIC, RENDER_MYTBA_BUTTON})
@@ -47,7 +45,7 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
     private @Nullable String eventTypeString;
     private @Nullable String shortName;
     private @Nullable String address;
-    private @Nullable IDistrict district;
+    private @Nullable District district;
     private @Nullable String districtKey;
     private @Nullable String gmapsUrl;
     private @Nullable String locationName;
@@ -76,12 +74,11 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         endDate = null;
     }
 
-    @Nullable @Override
+    @Nullable
     public Integer getWeek() {
         return week;
     }
 
-    @Override
     public void setWeek(@Nullable Integer competitionWeek) {
         if (competitionWeek == null) {
             /* Fall back and calculate the week, mainly for offseason events */
@@ -99,7 +96,6 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         }
     }
 
-    @Override
     public @Nullable Date getEndDate() {
         return endDate;
     }
@@ -108,7 +104,6 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         this.endDate = endDate;
     }
 
-    @Override
     public String getEventCode() {
         if (eventCode == null) {
             return EventHelper.getEventCode(key);
@@ -116,18 +111,16 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         return eventCode;
     }
 
-    @Override
     public void setEventCode(String eventCode) {
         this.eventCode = eventCode;
     }
 
-    @Override @Nullable
-    public IDistrict getDistrict() {
+    @Nullable
+    public District getDistrict() {
         return district;
     }
 
-    @Override
-    public void setDistrict(@Nullable IDistrict district) {
+    public void setDistrict(@Nullable District district) {
         this.district = district;
     }
 
@@ -139,19 +132,19 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         this.districtKey = districtKey;
     }
 
-    @Nullable @Override public Integer getEventType() {
+    @Nullable public Integer getEventType() {
         return eventType;
     }
 
-    @Override public void setEventType(Integer eventType) {
+    public void setEventType(Integer eventType) {
         this.eventType = eventType;
     }
 
-    @Nullable @Override public String getEventTypeString() {
+    @Nullable public String getEventTypeString() {
         return eventTypeString;
     }
 
-    @Override public void setEventTypeString(@Nullable String eventTypeString) {
+    public void setEventTypeString(@Nullable String eventTypeString) {
         this.eventTypeString = eventTypeString;
     }
 
@@ -159,7 +152,7 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         return key;
     }
 
-    @Override public void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -171,25 +164,24 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         this.lastModified = lastModified;
     }
 
-    @Override @Nullable
+    @Nullable
     public String getAddress() {
         return address;
     }
 
-    @Override
     public void setAddress(@Nullable String address) {
         this.address = address;
     }
 
-    @Override public String getName() {
+    public String getName() {
         return name;
     }
 
-    @Override public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @Nullable @Override
+    @Nullable
     public String getShortName() {
         if (shortName == null || shortName.isEmpty()) {
             return getName();
@@ -197,49 +189,47 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         return shortName;
     }
 
-    @Override public void setShortName(@Nullable String shortName) {
+    public void setShortName(@Nullable String shortName) {
         this.shortName = shortName;
     }
 
-    @Override
     public void setStartDate(@Nullable Date startDate) {
         this.startDate = startDate;
     }
 
-    @Override @Nullable
+    @Nullable
     public Date getStartDate() {
         return startDate;
     }
 
-    @Nullable @Override public String getTimezone() {
+    @Nullable public String getTimezone() {
         return timezone;
     }
 
-    @Override public void setTimezone(@Nullable String timezone) {
+    public void setTimezone(@Nullable String timezone) {
         this.timezone = timezone;
     }
 
-    @Nullable @Override public String getWebcasts() {
+    @Nullable public String getWebcasts() {
         return webcasts;
     }
 
-    @Override public void setWebcasts(@Nullable String webcasts) {
+    public void setWebcasts(@Nullable String webcasts) {
         this.webcasts = webcasts;
     }
 
-    @Nullable @Override public String getWebsite() {
+    @Nullable public String getWebsite() {
         return website;
     }
 
-    @Override public void setWebsite(String website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
-    @Override public void setYear(Integer year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    @Override
     public Integer getYear() {
         if (year == null) {
             int year = EventHelper.getYear(getKey());
@@ -249,22 +239,21 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
         return year;
     }
 
-    @Override @Nullable
+    @Nullable
     public String getGmapsUrl() {
         return gmapsUrl;
     }
 
-    @Override
     public void setGmapsUrl(@Nullable String gmapsUrl) {
         this.gmapsUrl = gmapsUrl;
     }
 
-    @Override @Nullable
+    @Nullable
     public String getLocationName() {
         return locationName;
     }
 
-    @Override public void
+    public void
     setLocationName(@Nullable String locationName) {
         this.locationName = locationName;
     }
@@ -402,7 +391,7 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
     }
 
     public String getEventDistrictString() {
-        @Nullable IDistrict district = getDistrict();
+        @Nullable District district = getDistrict();
         return district != null
                 ? district.getDisplayName()
                 : "";
@@ -437,7 +426,7 @@ public class Event implements IEvent, TbaDatabaseModel, ViewModelRenderer<EventV
     public ContentValues getParams(Gson gson) {
         @Nullable Date startDate = getStartDate();
         @Nullable Date endDate = getEndDate();
-        @Nullable IDistrict district = getDistrict();
+        @Nullable District district = getDistrict();
         ContentValues params = new ContentValues();
         params.put(EventsTable.KEY, getKey());
         params.put(EventsTable.YEAR, getYear());

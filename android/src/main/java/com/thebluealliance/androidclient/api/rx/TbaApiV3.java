@@ -1,30 +1,28 @@
 package com.thebluealliance.androidclient.api.rx;
 
-import com.google.gson.JsonElement;
-import rx.Observable;
-import retrofit2.Response;
-
-import retrofit2.http.*;
-
-import okhttp3.RequestBody;
-
-import com.thebluealliance.androidclient.models.ApiStatus;
-import com.thebluealliance.androidclient.models.Event;
-import com.thebluealliance.androidclient.models.District;
-import com.thebluealliance.androidclient.models.DistrictRanking;
-import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.EventAlliance;
-import com.thebluealliance.androidclient.models.Award;
-import com.thebluealliance.androidclient.models.Match;
-import com.thebluealliance.androidclient.models.RankingResponseObject;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
-import com.thebluealliance.androidclient.models.Media;
 import com.thebluealliance.androidclient.models.Robot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import retrofit2.Response;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import rx.Observable;
+import thebluealliance.api.model.APIStatus;
+import thebluealliance.api.model.Award;
+import thebluealliance.api.model.DistrictList;
+import thebluealliance.api.model.DistrictRanking;
+import thebluealliance.api.model.EliminationAlliance;
+import thebluealliance.api.model.Event;
+import thebluealliance.api.model.EventDistrictPoints;
+import thebluealliance.api.model.EventInsights;
+import thebluealliance.api.model.EventOPRs;
+import thebluealliance.api.model.EventRanking;
+import thebluealliance.api.model.Match;
+import thebluealliance.api.model.Media;
+import thebluealliance.api.model.Team;
+import thebluealliance.api.model.TeamEventStatus;
 
 public interface TbaApiV3 {
   /**
@@ -34,7 +32,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/status")
-  Observable<Response<ApiStatus>> fetchApiStatus();
+  Observable<Response<APIStatus>> fetchApiStatus();
     
 
   /**
@@ -59,7 +57,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/districts/{year}")
-  Observable<Response<List<District>>> fetchDistrictList(
+  Observable<Response<List<DistrictList>>> fetchDistrictList(
     @Path("year") Integer year, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -111,7 +109,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/alliances")
-  Observable<Response<List<EventAlliance>>> fetchEventAlliances(
+  Observable<Response<List<EliminationAlliance>>> fetchEventAlliances(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -137,7 +135,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/district_points")
-  Observable<Response<JsonElement>> fetchEventDistrictPoints(
+  Observable<Response<EventDistrictPoints>> fetchEventDistrictPoints(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -150,7 +148,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/insights")
-  Observable<Response<JsonElement>> fetchEventInsights(
+  Observable<Response<EventInsights>> fetchEventInsights(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -176,7 +174,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/oprs")
-  Observable<Response<JsonElement>> fetchEventOPR(
+  Observable<Response<EventOPRs>> fetchEventOPR(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -189,7 +187,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/rankings")
-  Observable<Response<RankingResponseObject>> fetchEventRankings(
+  Observable<Response<EventRanking>> fetchEventRankings(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -283,7 +281,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/team/{team_key}/event/{event_key}/status")
-  Observable<Response<TeamAtEventStatus>> fetchTeamAtEventStatus(
+  Observable<Response<TeamEventStatus>> fetchTeamAtEventStatus(
     @Path("team_key") String teamKey, @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 

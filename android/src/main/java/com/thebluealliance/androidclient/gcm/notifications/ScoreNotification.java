@@ -9,9 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,16 +25,19 @@ import com.thebluealliance.androidclient.helpers.MyTBAHelper;
 import com.thebluealliance.androidclient.listeners.GamedayTickerClickListener;
 import com.thebluealliance.androidclient.listitems.MatchListElement;
 import com.thebluealliance.androidclient.models.Match;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.models.StoredNotification;
 import com.thebluealliance.androidclient.renderers.MatchRenderer;
 import com.thebluealliance.androidclient.types.MatchType;
 import com.thebluealliance.androidclient.viewmodels.ScoreNotificationViewModel;
 import com.thebluealliance.androidclient.views.MatchView;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 public class ScoreNotification extends BaseNotification<ScoreNotificationViewModel> {
 
@@ -95,7 +95,7 @@ public class ScoreNotification extends BaseNotification<ScoreNotificationViewMod
         String matchTitle = MatchHelper.getMatchTitleFromMatchKey(context, matchKey);
         String matchAbbrevTitle = MatchHelper.getAbbrevMatchTitleFromMatchKey(context, matchKey);
 
-        IMatchAlliancesContainer alliances = match.getAlliances();
+        MatchAlliancesContainer alliances = match.getAlliances();
 
         int redScore = Match.getRedScore(alliances);
         int blueScore = Match.getBlueScore(alliances);

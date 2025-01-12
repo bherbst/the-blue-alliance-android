@@ -2,18 +2,13 @@ package com.thebluealliance.androidclient.renderers;
 
 import android.content.res.Resources;
 
-import androidx.annotation.IntDef;
-import androidx.annotation.VisibleForTesting;
-import androidx.annotation.WorkerThread;
-
 import com.google.gson.JsonObject;
 import com.thebluealliance.androidclient.datafeed.APICache;
 import com.thebluealliance.androidclient.helpers.JSONHelper;
 import com.thebluealliance.androidclient.listitems.MatchListElement;
 import com.thebluealliance.androidclient.models.Match;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.types.ModelType;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
-import com.thebluealliance.api.model.IMatchVideo;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,6 +16,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
 
 @Singleton
 public class MatchRenderer implements ModelRenderer<Match, Integer> {
@@ -59,8 +58,8 @@ public class MatchRenderer implements ModelRenderer<Match, Integer> {
     @Override
     public @Nullable MatchListElement renderFromModel(Match match, Integer renderMode) {
         RenderArgs args = argsFromMode(renderMode);
-        @Nullable IMatchAlliancesContainer alliances = match.getAlliances();
-        @Nullable List<IMatchVideo> videos = match.getVideos();
+        @Nullable MatchAlliancesContainer alliances = match.getAlliances();
+        @Nullable List<Match.MatchVideo> videos = match.getVideos();
 
         String key = match.getKey();
         if (key.isEmpty()) {
@@ -79,7 +78,7 @@ public class MatchRenderer implements ModelRenderer<Match, Integer> {
 
         String youTubeVideoKey = null;
         if (videos != null) {
-            for (IMatchVideo video : videos) {
+            for (Match.MatchVideo video : videos) {
                 if ("youtube".equals(video.getType())) {
                     youTubeVideoKey = video.getKey();
                     break;

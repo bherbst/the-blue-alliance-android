@@ -3,8 +3,6 @@ package com.thebluealliance.androidclient.models;
 import android.content.ContentValues;
 import android.content.Context;
 
-import androidx.annotation.IntDef;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.thebluealliance.androidclient.database.TbaDatabaseModel;
@@ -13,7 +11,6 @@ import com.thebluealliance.androidclient.gcm.notifications.NotificationTypes;
 import com.thebluealliance.androidclient.helpers.JSONHelper;
 import com.thebluealliance.androidclient.viewmodels.TeamViewModel;
 import com.thebluealliance.androidclient.viewmodels.ViewModelRenderer;
-import com.thebluealliance.api.model.ITeam;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -22,7 +19,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class Team implements ITeam, TbaDatabaseModel, ViewModelRenderer<TeamViewModel, Integer> {
+import androidx.annotation.IntDef;
+
+public class Team implements TbaDatabaseModel, ViewModelRenderer<TeamViewModel, Integer> {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({RENDER_BASIC, RENDER_DETAILS_BUTTON, RENDER_MYTBA_DETAILS})
@@ -72,7 +71,7 @@ public class Team implements ITeam, TbaDatabaseModel, ViewModelRenderer<TeamView
         return key;
     }
 
-    @Override public void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -84,75 +83,75 @@ public class Team implements ITeam, TbaDatabaseModel, ViewModelRenderer<TeamView
         this.lastModified = lastModified;
     }
 
-    @Nullable @Override public String getMotto() {
+    @Nullable public String getMotto() {
         return motto;
     }
 
-    @Override public void setMotto(String motto) {
+    public void setMotto(String motto) {
         this.motto = motto;
     }
 
-    @Override public String getName() {
+    public String getName() {
         return name;
     }
 
-    @Override public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @Nullable @Override public String getNickname() {
+    @Nullable public String getNickname() {
         return nickname;
     }
 
-    @Override public void setNickname(String nickname) {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
-    @Nullable @Override public Integer getRookieYear() {
+    @Nullable public Integer getRookieYear() {
         return rookieYear;
     }
 
-    @Override public void setRookieYear(Integer rookieYear) {
+    public void setRookieYear(Integer rookieYear) {
         this.rookieYear = rookieYear;
     }
 
-    @Override public Integer getTeamNumber() {
+    public Integer getTeamNumber() {
         return teamNumber;
     }
 
-    @Override public void setTeamNumber(Integer teamNumber) {
+    public void setTeamNumber(Integer teamNumber) {
         this.teamNumber = teamNumber;
     }
 
-    @Nullable @Override public String getWebsite() {
+    @Nullable public String getWebsite() {
         return website;
     }
 
-    @Override public void setWebsite(String website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
-    @Override @Nullable public String getGmapsUrl() {
+    @Nullable public String getGmapsUrl() {
         return gmapsUrl;
     }
 
-    @Override public void setGmapsUrl(@Nullable String gmapsUrl) {
+    public void setGmapsUrl(@Nullable String gmapsUrl) {
         this.gmapsUrl = gmapsUrl;
     }
 
-    @Override @Nullable public String getAddress() {
+    @Nullable public String getAddress() {
         return address;
     }
 
-    @Override public void setAddress(@Nullable String address) {
+    public void setAddress(@Nullable String address) {
         this.address = address;
     }
 
-    @Override @Nullable public String getLocationName() {
+    @Nullable public String getLocationName() {
         return locationName;
     }
 
-    @Override public void setLocationName(@Nullable String locationName) {
+    public void setLocationName(@Nullable String locationName) {
         this.locationName = locationName;
     }
 

@@ -10,7 +10,6 @@ import com.thebluealliance.androidclient.models.Award;
 import com.thebluealliance.androidclient.models.Team;
 import com.thebluealliance.androidclient.renderers.AwardRenderer;
 import com.thebluealliance.androidclient.renderers.ModelRenderer;
-import com.thebluealliance.api.model.IAwardRecipient;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,7 +46,7 @@ public class AwardsListSubscriber extends BaseAPISubscriber<List<Award>, List<Li
         for (int i = 0; i < sortedAwards.size(); i++) {
             Award award = sortedAwards.get(i);
             if (award.getRecipientList() == null) continue;
-            for (IAwardRecipient winner : award.getRecipientList()) {
+            for (Award.AwardRecipient winner : award.getRecipientList()) {
                 if (winner != null && winner.getTeamKey() != null){
                     String teamKey = winner.getTeamKey();
                     Team team = mDb.getTeamsTable().get(teamKey);

@@ -10,9 +10,8 @@ import com.thebluealliance.androidclient.listitems.ListElement;
 import com.thebluealliance.androidclient.renderers.DistrictPointBreakdownRenderer;
 import com.thebluealliance.androidclient.renderers.ModelRendererSupplier;
 import com.thebluealliance.androidclient.types.ModelType;
-import com.thebluealliance.api.model.IDistrictEventPoints;
 
-public class DistrictPointBreakdown implements RenderableModel, IDistrictEventPoints {
+public class DistrictPointBreakdown implements RenderableModel {
 
     private Integer qualPoints, elimPoints, alliancePoints, awardPoints, total;
     private String teamKey, districtKey, teamName, eventKey;
@@ -28,35 +27,35 @@ public class DistrictPointBreakdown implements RenderableModel, IDistrictEventPo
         rank = -1;
     }
 
-    @Override public Integer getQualPoints() {
+    public Integer getQualPoints() {
         return qualPoints;
     }
 
-    @Override public void setQualPoints(Integer qualPoints) {
+    public void setQualPoints(Integer qualPoints) {
         this.qualPoints = qualPoints;
     }
 
-    @Override public Integer getElimPoints() {
+    public Integer getElimPoints() {
         return elimPoints;
     }
 
-    @Override public void setElimPoints(Integer elimPoints) {
+    public void setElimPoints(Integer elimPoints) {
         this.elimPoints = elimPoints;
     }
 
-    @Override public Integer getAlliancePoints() {
+    public Integer getAlliancePoints() {
         return alliancePoints;
     }
 
-    @Override public void setAlliancePoints(Integer alliancePoints) {
+    public void setAlliancePoints(Integer alliancePoints) {
         this.alliancePoints = alliancePoints;
     }
 
-    @Override public Integer getAwardPoints() {
+    public Integer getAwardPoints() {
         return awardPoints;
     }
 
-    @Override public void setAwardPoints(Integer awardPoints) {
+    public void setAwardPoints(Integer awardPoints) {
         this.awardPoints = awardPoints;
     }
 
@@ -92,11 +91,11 @@ public class DistrictPointBreakdown implements RenderableModel, IDistrictEventPo
         this.teamName = teamName;
     }
 
-    @Override public String getEventKey() {
+    public String getEventKey() {
         return eventKey;
     }
 
-    @Override public void setEventKey(String eventKey) {
+    public void setEventKey(String eventKey) {
         this.eventKey = eventKey;
     }
 
@@ -108,11 +107,11 @@ public class DistrictPointBreakdown implements RenderableModel, IDistrictEventPo
         this.rank = rank;
     }
 
-    @Override public Boolean getDistrictCmp() {
+    public Boolean getDistrictCmp() {
         return districtCmp;
     }
 
-    @Override public void setDistrictCmp(Boolean districtCmp) {
+    public void setDistrictCmp(Boolean districtCmp) {
         this.districtCmp = districtCmp;
     }
 

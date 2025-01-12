@@ -1,29 +1,28 @@
 package com.thebluealliance.androidclient.api.call;
 
 
+import com.thebluealliance.androidclient.models.TeamAtEventStatus;
+
+import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.*;
-
-import okhttp3.RequestBody;
-
-import com.thebluealliance.androidclient.models.ApiStatus;
-import com.thebluealliance.androidclient.models.Event;
-import com.thebluealliance.androidclient.models.District;
-import com.thebluealliance.androidclient.models.DistrictRanking;
-import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.EventAlliance;
-import com.thebluealliance.androidclient.models.Award;
-import com.thebluealliance.androidclient.models.Match;
-import com.thebluealliance.androidclient.models.RankingResponseObject;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
-import com.thebluealliance.androidclient.models.Media;
-import com.thebluealliance.androidclient.models.Robot;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import thebluealliance.api.model.APIStatus;
+import thebluealliance.api.model.Award;
+import thebluealliance.api.model.DistrictList;
+import thebluealliance.api.model.DistrictRanking;
+import thebluealliance.api.model.EliminationAlliance;
+import thebluealliance.api.model.Event;
+import thebluealliance.api.model.EventDistrictPoints;
+import thebluealliance.api.model.EventInsights;
+import thebluealliance.api.model.EventOPRs;
+import thebluealliance.api.model.EventRanking;
+import thebluealliance.api.model.Match;
+import thebluealliance.api.model.Media;
+import thebluealliance.api.model.Team;
+import thebluealliance.api.model.TeamRobot;
 
 public interface TbaApiV3 {
   /**
@@ -33,7 +32,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/status")
-  Call<ApiStatus> fetchApiStatus();
+  Call<APIStatus> fetchApiStatus();
     
 
   /**
@@ -58,7 +57,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/districts/{year}")
-  Call<List<District>> fetchDistrictList(
+  Call<List<DistrictList>> fetchDistrictList(
     @Path("year") Integer year, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -110,7 +109,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/alliances")
-  Call<List<EventAlliance>> fetchEventAlliances(
+  Call<List<EliminationAlliance>> fetchEventAlliances(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -136,7 +135,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/district_points")
-  Call<String> fetchEventDistrictPoints(
+  Call<EventDistrictPoints> fetchEventDistrictPoints(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -149,7 +148,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/insights")
-  Call<String> fetchEventInsights(
+  Call<EventInsights> fetchEventInsights(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -175,7 +174,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/oprs")
-  Call<String> fetchEventOPR(
+  Call<EventOPRs> fetchEventOPR(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -188,7 +187,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/event/{event_key}/rankings")
-  Call<RankingResponseObject> fetchEventRankings(
+  Call<EventRanking> fetchEventRankings(
     @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
@@ -349,7 +348,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/team/{team_key}/robots")
-  Call<List<Robot>> fetchTeamRobots(
+  Call<List<TeamRobot>> fetchTeamRobots(
     @Path("team_key") String teamKey, @Header("X-TBA-Cache") String xTBACache
   );
 

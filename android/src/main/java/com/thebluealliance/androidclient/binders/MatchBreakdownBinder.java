@@ -2,11 +2,10 @@ package com.thebluealliance.androidclient.binders;
 
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.JsonObject;
 import com.thebluealliance.androidclient.TbaLogger;
 import com.thebluealliance.androidclient.databinding.FragmentMatchBreakdownBinding;
+import com.thebluealliance.androidclient.models.MatchAlliancesContainer;
 import com.thebluealliance.androidclient.types.MatchType;
 import com.thebluealliance.androidclient.views.breakdowns.AbstractMatchBreakdownView;
 import com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownView2015;
@@ -17,7 +16,8 @@ import com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownView2019
 import com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownView2020;
 import com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownView2022;
 import com.thebluealliance.androidclient.views.breakdowns.MatchBreakdownView2023;
-import com.thebluealliance.api.model.IMatchAlliancesContainer;
+
+import androidx.annotation.Nullable;
 public class MatchBreakdownBinder extends AbstractDataBinder<MatchBreakdownBinder.Model, FragmentMatchBreakdownBinding> {
 
     @Override
@@ -123,14 +123,14 @@ public class MatchBreakdownBinder extends AbstractDataBinder<MatchBreakdownBinde
     }
 
     public static class Model {
-        public final IMatchAlliancesContainer allianceData;
+        public final MatchAlliancesContainer allianceData;
         public final JsonObject scoreData;
         public final MatchType matchType;
         public final String winningAlliance;
         public final int year;
 
         public Model(MatchType matchType, int year, String winningAlliance,
-                     IMatchAlliancesContainer
+                     MatchAlliancesContainer
                      allianceData, JsonObject scoreData) {
             this.matchType = matchType;
             this.year = year;

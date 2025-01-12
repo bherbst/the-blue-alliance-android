@@ -10,8 +10,8 @@ import com.thebluealliance.androidclient.R;
 import com.thebluealliance.androidclient.datafeed.APICache;
 import com.thebluealliance.androidclient.helpers.EventTeamHelper;
 import com.thebluealliance.androidclient.listeners.EventTeamClickListener;
+import com.thebluealliance.androidclient.models.Award.AwardRecipient;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.api.model.IAwardRecipient;
 
 import java.util.List;
 import java.util.Map;
@@ -20,11 +20,11 @@ public class CardedAwardListElement extends ListElement {
     public final String mAwardName;
     public final String mEventKey;
     public final String mSelectedTeamNum;
-    public final List<IAwardRecipient> mAwardWinners;
+    public final List<AwardRecipient> mAwardWinners;
     private final Map<String, Team> mAwardTeams;
     private final APICache mDatafeed;
 
-    public CardedAwardListElement(APICache datafeed, String name, String eventKey, List<IAwardRecipient> recipientList,
+    public CardedAwardListElement(APICache datafeed, String name, String eventKey, List<AwardRecipient> recipientList,
                                   Map<String, Team> teams, String selectedTeamKey) {
         super();
         mDatafeed = datafeed;
@@ -54,7 +54,7 @@ public class CardedAwardListElement extends ListElement {
 
         holder.awardName.setText(mAwardName);
 
-        for (IAwardRecipient awardWinner : mAwardWinners) {
+        for (AwardRecipient awardWinner : mAwardWinners) {
             View winnerView = inflater.inflate(R.layout.list_item_award_recipient, null);
 
             String teamNumber;

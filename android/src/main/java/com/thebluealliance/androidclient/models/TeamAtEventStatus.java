@@ -1,42 +1,36 @@
 package com.thebluealliance.androidclient.models;
 
-import com.thebluealliance.api.model.IAllianceBackup;
-import com.thebluealliance.api.model.IRankingItem;
-import com.thebluealliance.api.model.IRankingSortOrder;
-import com.thebluealliance.api.model.ITeamAtEventAlliance;
-import com.thebluealliance.api.model.ITeamAtEventPlayoff;
-import com.thebluealliance.api.model.ITeamAtEventQual;
-import com.thebluealliance.api.model.ITeamAtEventStatus;
-import com.thebluealliance.api.model.ITeamRecord;
+import com.thebluealliance.androidclient.models.EventAlliance.AllianceBackup;
+import com.thebluealliance.androidclient.models.RankingItem.TeamRecord;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class TeamAtEventStatus implements ITeamAtEventStatus {
+public class TeamAtEventStatus {
 
     private String allianceStatusStr;
     private String overallStatusStr;
     private String playoffStatusStr;
 
-    private @Nullable ITeamAtEventAlliance alliance;
-    private @Nullable ITeamAtEventPlayoff playoff;
-    private @Nullable ITeamAtEventQual qual;
+    private @Nullable TeamAtEventAlliance alliance;
+    private @Nullable TeamAtEventPlayoff playoff;
+    private @Nullable TeamAtEventQual qual;
     private @Nullable Long lastModified;
 
-    @Override public String getAllianceStatusStr() {
+    public String getAllianceStatusStr() {
         return allianceStatusStr;
     }
 
-    @Override public void setAllianceStatusStr(String allianceStatusStr) {
+    public void setAllianceStatusStr(String allianceStatusStr) {
         this.allianceStatusStr = allianceStatusStr;
     }
 
-    @Override public String getOverallStatusStr() {
+    public String getOverallStatusStr() {
         return overallStatusStr;
     }
 
-    @Override public void setOverallStatusStr(String overallStatusStr) {
+    public void setOverallStatusStr(String overallStatusStr) {
         this.overallStatusStr = overallStatusStr;
     }
 
@@ -48,150 +42,150 @@ public class TeamAtEventStatus implements ITeamAtEventStatus {
         this.playoffStatusStr = playoffStatusStr;
     }
 
-    @Override @Nullable public ITeamAtEventAlliance getAlliance() {
+    @Nullable public TeamAtEventAlliance getAlliance() {
         return alliance;
     }
 
-    @Override public void setAlliance(@Nullable ITeamAtEventAlliance alliance) {
+    public void setAlliance(@Nullable TeamAtEventAlliance alliance) {
         this.alliance = alliance;
     }
 
-    @Override @Nullable public ITeamAtEventPlayoff getPlayoff() {
+    @Nullable public TeamAtEventPlayoff getPlayoff() {
         return playoff;
     }
 
-    @Override public void setPlayoff(@Nullable ITeamAtEventPlayoff playoff) {
+    public void setPlayoff(@Nullable TeamAtEventPlayoff playoff) {
         this.playoff = playoff;
     }
 
-    @Override @Nullable public ITeamAtEventQual getQual() {
+    @Nullable public TeamAtEventQual getQual() {
         return qual;
     }
 
-    @Override public void setQual(@Nullable ITeamAtEventQual qual) {
+    public void setQual(@Nullable TeamAtEventQual qual) {
         this.qual = qual;
     }
 
-    @Override @Nullable public Long getLastModified() {
+    @Nullable public Long getLastModified() {
         return lastModified;
     }
 
-    @Override public void setLastModified(@Nullable Long lastModified) {
+    public void setLastModified(@Nullable Long lastModified) {
         this.lastModified = lastModified;
     }
 
-    public static class TeamAtEventAlliance implements ITeamAtEventAlliance {
+    public static class TeamAtEventAlliance {
         private String name;
         private Integer number;
         private Integer pick;
 
-        private @Nullable IAllianceBackup backup;
+        private @Nullable AllianceBackup backup;
 
-        @Override public String getName() {
+        public String getName() {
             return name;
         }
 
-        @Override public void setName(String name) {
+        public void setName(String name) {
             this.name = name;
         }
 
-        @Override public Integer getNumber() {
+        public Integer getNumber() {
             return number;
         }
 
-        @Override public void setNumber(Integer number) {
+        public void setNumber(Integer number) {
             this.number = number;
         }
 
-        @Override public Integer getPick() {
+        public Integer getPick() {
             return pick;
         }
 
-        @Override public void setPick(Integer pick) {
+        public void setPick(Integer pick) {
             this.pick = pick;
         }
 
-        @Override @Nullable public IAllianceBackup getBackup() {
+        @Nullable public AllianceBackup getBackup() {
             return backup;
         }
 
-        @Override public void setBackup(@Nullable IAllianceBackup backup) {
+        public void setBackup(@Nullable AllianceBackup backup) {
             this.backup = backup;
         }
     }
 
-    public static class TeamAtEventPlayoff implements ITeamAtEventPlayoff {
+    public static class TeamAtEventPlayoff {
         private String level;
         private String status;
 
-        private @Nullable ITeamRecord currentLevelRecord;
-        private @Nullable ITeamRecord record;
+        private @Nullable TeamRecord currentLevelRecord;
+        private @Nullable TeamRecord record;
         private @Nullable Double playoffAverage;
 
-        @Override public String getLevel() {
+        public String getLevel() {
             return level;
         }
 
-        @Override public void setLevel(String level) {
+        public void setLevel(String level) {
             this.level = level;
         }
 
-        @Override public String getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        @Override public void setStatus(String status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
-        @Override @Nullable public ITeamRecord getCurrentLevelRecord() {
+        @Nullable public TeamRecord getCurrentLevelRecord() {
             return currentLevelRecord;
         }
 
-        @Override public void setCurrentLevelRecord(@Nullable ITeamRecord currentLevelRecord) {
+        public void setCurrentLevelRecord(@Nullable TeamRecord currentLevelRecord) {
             this.currentLevelRecord = currentLevelRecord;
         }
 
-        @Override @Nullable public ITeamRecord getRecord() {
+        @Nullable public TeamRecord getRecord() {
             return record;
         }
 
-        @Override public void setRecord(@Nullable ITeamRecord record) {
+        public void setRecord(@Nullable TeamRecord record) {
             this.record = record;
         }
 
-        @Override @Nullable public Double getPlayoffAverage() {
+        @Nullable public Double getPlayoffAverage() {
             return playoffAverage;
         }
 
-        @Override public void setPlayoffAverage(@Nullable Double playoffAverage) {
+        public void setPlayoffAverage(@Nullable Double playoffAverage) {
             this.playoffAverage = playoffAverage;
         }
     }
 
-    public static class TeamAtEventQual implements ITeamAtEventQual {
-        private IRankingItem ranking;
-        private List<IRankingSortOrder> sortOrderInfo;
+    public static class TeamAtEventQual {
+        private RankingItem ranking;
+        private List<RankingSortOrder> sortOrderInfo;
         private Integer numTeams;
         private String status;
 
-        @Nullable @Override public IRankingItem getRanking() {
+        @Nullable public RankingItem getRanking() {
             return ranking;
         }
 
-        @Override public void setRanking(IRankingItem ranking) {
+        public void setRanking(RankingItem ranking) {
             this.ranking = ranking;
         }
 
-        @Override public List<IRankingSortOrder> getSortOrderInfo() {
+        public List<RankingSortOrder> getSortOrderInfo() {
             return sortOrderInfo;
         }
 
-        @Override public void setSortOrderInfo(List<IRankingSortOrder> sortOrderInfo) {
+        public void setSortOrderInfo(List<RankingSortOrder> sortOrderInfo) {
             this.sortOrderInfo = sortOrderInfo;
         }
 
-        @Override public Integer getNumTeams() {
+        public Integer getNumTeams() {
             return numTeams;
         }
 
@@ -199,11 +193,11 @@ public class TeamAtEventStatus implements ITeamAtEventStatus {
             this.numTeams = numTeams;
         }
 
-        @Override public String getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        @Override public void setStatus(String status) {
+        public void setStatus(String status) {
             this.status = status;
         }
     }

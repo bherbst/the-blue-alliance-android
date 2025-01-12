@@ -58,6 +58,7 @@ import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import retrofit2.Call;
 import retrofit2.Response;
+import thebluealliance.api.model.APIStatus;
 
 @HiltWorker
 public class LoadTBADataWorker extends Worker {
@@ -144,8 +145,8 @@ public class LoadTBADataWorker extends Worker {
             publishProgress(new LoadProgressInfo(LoadProgressInfo.STATE_LOADING, mApplicationContext.getString(R.string.loading_config)));
             mAppConfig.updateRemoteDataBlocking();
 
-            Call<ApiStatus> statusCall = mDatafeed.fetchApiStatus();
-            Response<ApiStatus> statusResponse = statusCall.execute();
+            Call<APIStatus> statusCall = mDatafeed.fetchApiStatus();
+            Response<APIStatus> statusResponse = statusCall.execute();
             if (!statusResponse.isSuccessful() || statusResponse.body() == null || statusResponse.body().getMaxSeason() == null) {
                 TbaLogger.e("Bad API status response: " + statusResponse);
                 return onConnectionError();

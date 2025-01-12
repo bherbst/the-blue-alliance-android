@@ -11,36 +11,34 @@ import com.thebluealliance.androidclient.listitems.ListElement;
 import com.thebluealliance.androidclient.renderers.ModelRenderer;
 import com.thebluealliance.androidclient.renderers.ModelRendererSupplier;
 import com.thebluealliance.androidclient.types.ModelType;
-import com.thebluealliance.api.model.IAward;
-import com.thebluealliance.api.model.IAwardRecipient;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class Award implements IAward, RenderableModel, TbaDatabaseModel {
+public class Award implements RenderableModel, TbaDatabaseModel {
 
     private Integer awardType = null;
     private String eventKey = null;
     private String key = null;
     private Long lastModified = null;
     private String name = null;
-    private List<IAwardRecipient> recipientList = null;
+    private List<AwardRecipient> recipientList = null;
     private Integer year = null;
 
-    @Override public Integer getAwardType() {
+    public Integer getAwardType() {
         return awardType;
     }
 
-    @Override public void setAwardType(Integer awardType) {
+    public void setAwardType(Integer awardType) {
         this.awardType = awardType;
     }
 
-    @Override public String getEventKey() {
+    public String getEventKey() {
         return eventKey;
     }
 
-    @Override public void setEventKey(String eventKey) {
+    public void setEventKey(String eventKey) {
         this.eventKey = eventKey;
     }
 
@@ -48,7 +46,7 @@ public class Award implements IAward, RenderableModel, TbaDatabaseModel {
         return key;
     }
 
-    @Override public void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -60,27 +58,27 @@ public class Award implements IAward, RenderableModel, TbaDatabaseModel {
         this.lastModified = lastModified;
     }
 
-    @Override public String getName() {
+    public String getName() {
         return name;
     }
 
-    @Override public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @Nullable @Override public List<IAwardRecipient> getRecipientList() {
+    @Nullable public List<AwardRecipient> getRecipientList() {
         return recipientList;
     }
 
-    @Override public void setRecipientList(List<IAwardRecipient> recipientList) {
+    public void setRecipientList(List<AwardRecipient> recipientList) {
         this.recipientList = recipientList;
     }
 
-    @Override public Integer getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    @Override public void setYear(Integer year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -113,24 +111,24 @@ public class Award implements IAward, RenderableModel, TbaDatabaseModel {
         return renderer != null ? renderer.renderFromModel(this, null) : null;
     }
 
-    public static class AwardRecipient implements IAwardRecipient {
+    public static class AwardRecipient {
         private @Nullable String awardee;
         private @Nullable String teamKey;
         private @Nullable Long lastModified;
 
-        @Override @Nullable public String getAwardee() {
+        @Nullable public String getAwardee() {
             return awardee;
         }
 
-        @Override public void setAwardee(@Nullable String awardee) {
+        public void setAwardee(@Nullable String awardee) {
             this.awardee = awardee;
         }
 
-        @Override @Nullable public String getTeamKey() {
+        @Nullable public String getTeamKey() {
             return teamKey;
         }
 
-        @Override public void setTeamKey(@Nullable String teamKey) {
+        public void setTeamKey(@Nullable String teamKey) {
             this.teamKey = teamKey;
         }
 

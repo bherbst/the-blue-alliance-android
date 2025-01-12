@@ -19,6 +19,7 @@ import com.thebluealliance.androidclient.database.tables.SubscriptionsTable;
 import com.thebluealliance.androidclient.database.tables.TeamsTable;
 import com.thebluealliance.androidclient.models.Award;
 import com.thebluealliance.androidclient.models.District;
+import com.thebluealliance.androidclient.models.DistrictPointBreakdown;
 import com.thebluealliance.androidclient.models.DistrictRanking;
 import com.thebluealliance.androidclient.models.Event;
 import com.thebluealliance.androidclient.models.EventDetail;
@@ -32,7 +33,6 @@ import com.thebluealliance.androidclient.models.Subscription;
 import com.thebluealliance.androidclient.models.Team;
 import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.types.MatchType;
-import com.thebluealliance.api.model.IDistrictEventPoints;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -334,7 +334,7 @@ public final class ModelInflater {
 
     public static DistrictRanking inflateDistrictTeam(Cursor data, Gson gson) {
         DistrictRanking districtTeam = new DistrictRanking();
-        IDistrictEventPoints[] events = new IDistrictEventPoints[3];
+        DistrictPointBreakdown[] events = new DistrictPointBreakdown[3];
         for (int i = 0; i < data.getColumnCount(); i++) {
             switch (data.getColumnName(i)) {
                 case DistrictTeamsTable.KEY:
@@ -350,13 +350,13 @@ public final class ModelInflater {
                     districtTeam.setRank(data.getInt(i));
                     break;
                 case DistrictTeamsTable.EVENT1_POINTS:
-                    events[0] = gson.fromJson(data.getString(i), IDistrictEventPoints.class);
+                    events[0] = gson.fromJson(data.getString(i), DistrictPointBreakdown.class);
                     break;
                 case DistrictTeamsTable.EVENT2_POINTS:
-                    events[1] = gson.fromJson(data.getString(i), IDistrictEventPoints.class);
+                    events[1] = gson.fromJson(data.getString(i), DistrictPointBreakdown.class);
                     break;
                 case DistrictTeamsTable.CMP_POINTS:
-                    events[2] = gson.fromJson(data.getString(i), IDistrictEventPoints.class);
+                    events[2] = gson.fromJson(data.getString(i), DistrictPointBreakdown.class);
                     break;
                 case DistrictTeamsTable.ROOKIE_POINTS:
                     districtTeam.setRookieBonus(data.getInt(i));
@@ -370,8 +370,8 @@ public final class ModelInflater {
                 default:
             }
         }
-        List<IDistrictEventPoints> eventPoints = new ArrayList<>();
-        for (IDistrictEventPoints event : events) {
+        List<DistrictPointBreakdown> eventPoints = new ArrayList<>();
+        for (DistrictPointBreakdown event : events) {
             if (event == null) break;
             eventPoints.add(event);
         }
