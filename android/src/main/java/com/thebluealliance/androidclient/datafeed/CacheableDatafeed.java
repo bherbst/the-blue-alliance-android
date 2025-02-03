@@ -33,7 +33,6 @@ import com.thebluealliance.androidclient.models.Match;
 import com.thebluealliance.androidclient.models.Media;
 import com.thebluealliance.androidclient.models.RankingResponseObject;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.types.EventDetailType;
 
 import java.util.List;
@@ -43,6 +42,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import rx.Observable;
+import thebluealliance.api.model.TeamEventStatus;
 
 @Singleton
 public class CacheableDatafeed {
@@ -121,11 +121,11 @@ public class CacheableDatafeed {
         return mAPICache.fetchTeamAtEventMatches(teamKey, eventKey).concatWith(apiData);
     }
 
-    public Observable<TeamAtEventStatus> fetchTeamAtEventStatus(
+    public Observable<TeamEventStatus> fetchTeamAtEventStatus(
             String teamKey,
             String eventKey,
             String cacheHeader) {
-        Observable<TeamAtEventStatus> apiData = mResponseMap.getAndWriteMappedResponseBody(
+        Observable<TeamEventStatus> apiData = mResponseMap.getAndWriteMappedResponseBody(
                 mApiv3.fetchTeamAtEventStatus(teamKey, eventKey, cacheHeader),
                 new TeamAtEventStatusToEventTeam(teamKey, eventKey),
                 mWriter.getEventTeamWriter().get());

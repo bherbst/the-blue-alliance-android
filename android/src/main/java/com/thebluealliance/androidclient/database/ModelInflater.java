@@ -30,13 +30,14 @@ import com.thebluealliance.androidclient.models.Media;
 import com.thebluealliance.androidclient.models.StoredNotification;
 import com.thebluealliance.androidclient.models.Subscription;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.types.MatchType;
 import com.thebluealliance.api.model.IDistrictEventPoints;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import thebluealliance.api.model.TeamEventStatus;
 
 public final class ModelInflater {
 
@@ -296,7 +297,7 @@ public final class ModelInflater {
                     eventTeam.setKey(data.getString(i));
                     break;
                 case EventTeamsTable.STATUS:
-                    eventTeam.setStatus(gson.fromJson(data.getString(i), TeamAtEventStatus.class));
+                    eventTeam.setStatus(gson.fromJson(data.getString(i), TeamEventStatus.class));
                     break;
                 case EventTeamsTable.LAST_MODIFIED:
                     eventTeam.setLastModified(data.getLong(i));

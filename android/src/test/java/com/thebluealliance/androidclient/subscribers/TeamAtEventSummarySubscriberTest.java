@@ -16,7 +16,6 @@ import com.thebluealliance.androidclient.eventbus.EventAwardsEvent;
 import com.thebluealliance.androidclient.eventbus.EventMatchesEvent;
 import com.thebluealliance.androidclient.models.Event;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.renderers.MatchRenderer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,6 +25,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.LooperMode;
+
+import thebluealliance.api.model.TeamEventStatus;
 
 @LooperMode(LooperMode.Mode.PAUSED)
 @RunWith(AndroidJUnit4.class)
@@ -40,7 +41,7 @@ public class TeamAtEventSummarySubscriberTest {
     @Mock Team mTeam;
 
     TeamAtEventSummarySubscriber mSubscriber;
-    TeamAtEventStatus mStatus;
+    TeamEventStatus mStatus;
 
     @Before
     public void setUp() {
@@ -51,7 +52,7 @@ public class TeamAtEventSummarySubscriberTest {
                                                        mMatchRenderer);
         mSubscriber.setTeamAndEventKeys("frc1519", "2015necmp");
         mEvent = ModelMaker.getModel(Event.class, "2015necmp");
-        mStatus = ModelMaker.getModel(TeamAtEventStatus.class, "frc1519_2015necmp_status");
+        mStatus = ModelMaker.getModel(TeamEventStatus.class, "frc1519_2015necmp_status");
     }
 
     @Test

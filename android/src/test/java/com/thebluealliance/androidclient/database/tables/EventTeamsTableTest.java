@@ -14,7 +14,6 @@ import com.thebluealliance.androidclient.database.DbTableTestDriver;
 import com.thebluealliance.androidclient.datafeed.framework.ModelMaker;
 import com.thebluealliance.androidclient.di.TBAAndroidModule;
 import com.thebluealliance.androidclient.models.EventTeam;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +22,11 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
+import thebluealliance.api.model.TeamEventStatus;
+
 @RunWith(AndroidJUnit4.class)
 public class EventTeamsTableTest {
-    private TeamAtEventStatus mStatus;
+    private TeamEventStatus mStatus;
     private Gson mGson;
     private EventTeamsTable mTable;
     private List<EventTeam> mEventTeams;
@@ -34,7 +35,7 @@ public class EventTeamsTableTest {
     public void setUp() {
         SQLiteDatabase db = SQLiteDatabase.create(null);
         db.execSQL(Database.CREATE_EVENTTEAMS);
-        mStatus = ModelMaker.getModel(TeamAtEventStatus.class, "2015necmp_frc1124_status");
+        mStatus = ModelMaker.getModel(TeamEventStatus.class, "2015necmp_frc1124_status");
         mGson = TBAAndroidModule.getGson();
         mTable = spy(new EventTeamsTable(db, mGson));
         mEventTeams = new ArrayList<>();

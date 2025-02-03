@@ -9,6 +9,8 @@ import com.thebluealliance.androidclient.gcm.notifications.NotificationTypes;
 
 import javax.annotation.Nullable;
 
+import thebluealliance.api.model.TeamEventStatus;
+
 public class EventTeam implements TbaDatabaseModel {
 
     public static final String[] NOTIFICATION_TYPES = {
@@ -23,7 +25,7 @@ public class EventTeam implements TbaDatabaseModel {
     private String teamKey;
     private String eventKey;
     private Integer year;
-    private @Nullable TeamAtEventStatus status;
+    private @Nullable TeamEventStatus status;
     private Long lastModified;
 
     public EventTeam() {
@@ -62,11 +64,11 @@ public class EventTeam implements TbaDatabaseModel {
         this.year = year;
     }
 
-    @Nullable public TeamAtEventStatus getStatus() {
+    @Nullable public TeamEventStatus getStatus() {
         return status;
     }
 
-    public void setStatus(@Nullable TeamAtEventStatus status) {
+    public void setStatus(@Nullable TeamEventStatus status) {
         this.status = status;
     }
 
@@ -85,7 +87,7 @@ public class EventTeam implements TbaDatabaseModel {
         params.put(EventTeamsTable.TEAMKEY, getTeamKey());
         params.put(EventTeamsTable.EVENTKEY, getEventKey());
         params.put(EventTeamsTable.YEAR, getYear());
-        params.put(EventTeamsTable.STATUS, status != null ? gson.toJson(status, TeamAtEventStatus.class) : "");
+        params.put(EventTeamsTable.STATUS, status != null ? gson.toJson(status, TeamEventStatus.class) : "");
         params.put(EventTeamsTable.LAST_MODIFIED, getLastModified());
         return params;
     }

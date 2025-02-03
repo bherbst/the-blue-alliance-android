@@ -71,7 +71,7 @@ public class RankingsListSubscriber extends BaseAPISubscriber<RankingResponseObj
 
             rankingSummary = mResources.getString(R.string.rank_item_summary,
                                                   firstSortInfo.getName(),
-                                                  formatSortOrder(firstSortInfo, firstSort));
+                                                  formatSortOrder(firstSortInfo.getPrecision(), firstSort));
 
             rankingString = buildRankingString(row,
                                                sortOrders,

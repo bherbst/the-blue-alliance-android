@@ -15,21 +15,18 @@ import com.thebluealliance.androidclient.eventbus.EventAwardsEvent;
 import com.thebluealliance.androidclient.eventbus.EventMatchesEvent;
 import com.thebluealliance.androidclient.helpers.MatchHelper;
 import com.thebluealliance.androidclient.helpers.PitLocationHelper;
+import com.thebluealliance.androidclient.helpers.RecordHelper;
 import com.thebluealliance.androidclient.models.Award;
 import com.thebluealliance.androidclient.models.Event;
 import com.thebluealliance.androidclient.models.Match;
 import com.thebluealliance.androidclient.models.RankingItem;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.androidclient.renderers.MatchRenderer;
 import com.thebluealliance.androidclient.viewmodels.LabelValueViewModel;
 import com.thebluealliance.androidclient.viewmodels.LabeledMatchViewModel;
 import com.thebluealliance.androidclient.viewmodels.SimpleTeamViewModel;
 import com.thebluealliance.api.model.IRankingItem;
 import com.thebluealliance.api.model.IRankingSortOrder;
-import com.thebluealliance.api.model.ITeamAtEventAlliance;
-import com.thebluealliance.api.model.ITeamAtEventPlayoff;
-import com.thebluealliance.api.model.ITeamAtEventQual;
 import com.thebluealliance.api.model.ITeamRecord;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,14 +40,22 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import thebluealliance.api.model.TeamEventStatus;
+import thebluealliance.api.model.TeamEventStatusAlliance;
+import thebluealliance.api.model.TeamEventStatusPlayoff;
+import thebluealliance.api.model.TeamEventStatusRank;
+import thebluealliance.api.model.TeamEventStatusRankRanking;
+import thebluealliance.api.model.TeamEventStatusRankSortOrderInfoInner;
+import thebluealliance.api.model.WLTRecord;
+
 public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventSummarySubscriber.Model, List<Object>> {
 
     public static class Model {
-        public final @Nullable TeamAtEventStatus status;
+        public final @Nullable TeamEventStatus status;
         public final Event event;
         public final Team team;
 
-        public Model(@Nullable TeamAtEventStatus status, Event event, Team team) {
+        public Model(@Nullable TeamEventStatus status, Event event, Team team) {
             this.status = status;
             this.event = event;
             this.team = team;
@@ -96,10 +101,10 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         mDataToBind.clear();
         Match nextMatch = null, lastMatch = null;
 
-        @Nullable TeamAtEventStatus status = mAPIData.status;
-        @Nullable ITeamAtEventAlliance allianceData = status != null ? status.getAlliance() : null;
-        @Nullable ITeamAtEventQual qualData = status != null ? status.getQual() : null;
-        @Nullable ITeamAtEventPlayoff playoffData = status != null ? status.getPlayoff() : null;
+        @Nullable TeamEventStatus status = mAPIData.status;
+        @Nullable TeamEventStatusAlliance allianceData = status != null ? status.getAlliance() : null;
+        @Nullable TeamEventStatusRank qualData = status != null ? status.getQual() : null;
+        @Nullable TeamEventStatusPlayoff playoffData = status != null ? status.getPlayoff() : null;
 
         Event event = mAPIData.event;
         Date now = new Date();
@@ -127,14 +132,14 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         }
 
         String qualRecordString;
-        @Nullable ITeamRecord qualRecord = null;
+        @Nullable WLTRecord qualRecord = null;
         if (qualData != null
                 && qualData.getRanking() != null
                 && qualData.getRanking().getRecord() != null) {
             qualRecord = qualData.getRanking().getRecord();
         }
         if (qualRecord != null) {
-            qualRecordString = RankingItem.TeamRecord.buildRecordString(qualRecord);
+            qualRecordString = RecordHelper.formatWinLossTie(qualRecord);
         } else {
             qualRecordString = "";
         }
@@ -148,11 +153,11 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
         int rank = 0;
         String rankingString = "";
         LabelValueViewModel rankBreakdownItem = null;
-        @Nullable IRankingItem rankData = qualData != null ? qualData.getRanking() : null;
-        @Nullable List<IRankingSortOrder> sortOrders = qualData != null ? qualData.getSortOrderInfo() : null;
+        @Nullable TeamEventStatusRankRanking rankData = qualData != null ? qualData.getRanking() : null;
+        @Nullable List<TeamEventStatusRankSortOrderInfoInner> sortOrders = qualData != null ? qualData.getSortOrderInfo() : null;
         if (rankData != null && sortOrders != null) {
             rank = rankData.getRank();
-            rankingString = buildRankingString(rankData, sortOrders, null, mResources, NONE);
+            rankingString = buildRankingString(rankData, sortOrders, mResources, NONE);
             rankBreakdownItem = new LabelValueViewModel(mResources.getString(R.string.team_at_event_rank_breakdown),
                                                         rankingString);
         }
@@ -193,7 +198,7 @@ public class TeamAtEventSummarySubscriber extends BaseAPISubscriber<TeamAtEventS
 
         /* Team Qual Record
          * Don't show for 2015 events, because no wins and such */
-        if (year != 2015 && !RankingItem.TeamRecord.isEmpty(qualRecord)) {
+        if (year != 2015 && !RecordHelper.isEmpty(qualRecord)) {
             mDataToBind.add(new LabelValueViewModel(
                     mResources.getString(R.string.team_at_event_qual_record),
                     qualRecordString));

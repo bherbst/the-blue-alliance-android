@@ -10,12 +10,16 @@ import com.thebluealliance.api.model.IRankingSortOrder;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import thebluealliance.api.model.TeamEventStatusRankRanking;
+import thebluealliance.api.model.TeamEventStatusRankSortOrderInfoInner;
 
 public final class RankingFormatter {
 
@@ -32,8 +36,8 @@ public final class RankingFormatter {
         // unused
     }
 
-    public static String formatSortOrder(IRankingSortOrder sort, Double rankValue) {
-        switch (sort.getPrecision()) {
+    public static String formatSortOrder(int precision, Double rankValue) {
+        switch (precision) {
             case 0:
                 return ThreadSafeFormatters.formatDoubleNoPlaces(rankValue);
             case 1:
@@ -42,6 +46,30 @@ public final class RankingFormatter {
             case 2:
                 return ThreadSafeFormatters.formatDoubleTwoPlaces(rankValue);
         }
+    }
+
+    public static String buildRankingString(TeamEventStatusRankRanking rankData,
+                                            List<TeamEventStatusRankSortOrderInfoInner> sortOrders,
+                                            Resources resources,
+                                            @RankingStringOptions int flags) {
+        Map<String, String> rankingElements = new LinkedHashMap<>();
+        if (rankData.getQualAverage() != null) {
+            rankingElements.put(resources.getString(R.string.rank_qual_average),
+              ThreadSafeFormatters.formatDoubleOnePlace(rankData.getQualAverage()));
+        }
+        for (int j = 0; j < Math.min(sortOrders.size(), rankData.getSortOrders().size()); j++) {
+            String rankString;
+            double rankValue = rankData.getSortOrders().get(j);
+            TeamEventStatusRankSortOrderInfoInner sort = sortOrders.get(j);
+            rankString = formatSortOrder(sort.getPrecision(), rankValue);
+            rankingElements.put(sort.getName(), rankString);
+        }
+
+        rankingElements.put(resources.getString(R.string.rank_played),
+          Integer.toString(rankData.getMatchesPlayed()));
+        rankingElements.put(resources.getString(R.string.rank_dq),
+          Integer.toString(rankData.getDq()));
+        return createRankingBreakdown(rankingElements, flags);
     }
 
     public static String buildRankingString(IRankingItem rankData,
@@ -58,7 +86,7 @@ public final class RankingFormatter {
             String rankString;
             Double rankValue = rankData.getSortOrders().get(j);
             IRankingSortOrder sort = sortOrders.get(j);
-            rankString = formatSortOrder(sort, rankValue);
+            rankString = formatSortOrder(sort.getPrecision(), rankValue);
             rankingElements.put(sort.getName(), rankString);
         }
 
@@ -68,7 +96,7 @@ public final class RankingFormatter {
             String rankString;
             Double rankValue = rankData.getExtraStats().get(j);
             IRankingSortOrder sort = extraStats.get(j);
-            rankString = formatSortOrder(sort, rankValue);
+            rankString = formatSortOrder(sort.getPrecision(), rankValue);
             rankingElements.put(sort.getName(), rankString);
         }
 

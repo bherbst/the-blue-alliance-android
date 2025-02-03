@@ -25,7 +25,6 @@ import com.thebluealliance.androidclient.datafeed.deserializers.MatchVideoDeseri
 import com.thebluealliance.androidclient.datafeed.deserializers.MediaDeserializer;
 import com.thebluealliance.androidclient.datafeed.deserializers.RankingItemDeserializer;
 import com.thebluealliance.androidclient.datafeed.deserializers.RankingsResponseDeserializer;
-import com.thebluealliance.androidclient.datafeed.deserializers.TeamAtEventStatusDeserializer;
 import com.thebluealliance.androidclient.datafeed.deserializers.TeamDeserializer;
 import com.thebluealliance.androidclient.models.Award;
 import com.thebluealliance.androidclient.models.District;
@@ -40,7 +39,6 @@ import com.thebluealliance.androidclient.models.RankingItem;
 import com.thebluealliance.androidclient.models.RankingResponseObject;
 import com.thebluealliance.androidclient.models.RankingSortOrder;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 import com.thebluealliance.api.model.IAllianceBackup;
 import com.thebluealliance.api.model.IAward;
 import com.thebluealliance.api.model.IAwardRecipient;
@@ -158,8 +156,6 @@ public class TBAAndroidModule {
         DistrictTeamDeserializer districtTeamDeserializer = new DistrictTeamDeserializer();
         DistrictTeamDeserializer.DistrictEventPointsDeserializer eventPointsDeserializer = new DistrictTeamDeserializer.DistrictEventPointsDeserializer();
         RankingItemDeserializer.RecordDeserializer recordDeserializer = new RankingItemDeserializer.RecordDeserializer();
-        TeamAtEventStatusDeserializer teamAtEventStatusDeserializer = new TeamAtEventStatusDeserializer();
-        TeamAtEventStatusDeserializer.Playoff playoffStatusDeserializer = new TeamAtEventStatusDeserializer.Playoff();
 
         builder.registerTypeAdapter(IAward.class, awardDeserializer);
         builder.registerTypeAdapter(Award.class, awardDeserializer);
@@ -203,11 +199,6 @@ public class TBAAndroidModule {
         builder.registerTypeAdapter(DistrictRanking.class, districtTeamDeserializer);
         builder.registerTypeAdapter(IDistrictEventPoints.class, eventPointsDeserializer);
         builder.registerTypeAdapter(DistrictPointBreakdown.class, eventPointsDeserializer);
-
-        builder.registerTypeAdapter(ITeamAtEventStatus.class, teamAtEventStatusDeserializer);
-        builder.registerTypeAdapter(TeamAtEventStatus.class, teamAtEventStatusDeserializer);
-        builder.registerTypeAdapter(ITeamAtEventPlayoff.class, playoffStatusDeserializer);
-        builder.registerTypeAdapter(TeamAtEventStatus.TeamAtEventPlayoff.class, playoffStatusDeserializer);
 
         sGson = builder.create();
         return sGson;

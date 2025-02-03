@@ -11,7 +11,6 @@ import com.thebluealliance.androidclient.models.Media;
 import com.thebluealliance.androidclient.models.RankingResponseObject;
 import com.thebluealliance.androidclient.models.Robot;
 import com.thebluealliance.androidclient.models.Team;
-import com.thebluealliance.androidclient.models.TeamAtEventStatus;
 
 import java.util.List;
 
@@ -20,6 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 import thebluealliance.api.model.APIStatus;
+import thebluealliance.api.model.TeamEventStatus;
 
 public interface TbaApiV3 {
   /**
@@ -278,7 +278,7 @@ public interface TbaApiV3 {
    */
   
   @GET("api/v3/team/{team_key}/event/{event_key}/status")
-  Call<TeamAtEventStatus> fetchTeamAtEventStatus(
+  Call<TeamEventStatus> fetchTeamAtEventStatus(
     @Path("team_key") String teamKey, @Path("event_key") String eventKey, @Header("X-TBA-Cache") String xTBACache
   );
 
